@@ -10,6 +10,9 @@ import utils
 import numpy as np
 import sys
 import sklearn
+# MR added code
+import os
+import platform
 
 
 def prepare_data():
@@ -79,8 +82,39 @@ def get_xp_val(xp):
     return xp_arr
 
 
+def get_pctype():   #   MR function
+    pctype = ""
+    if platform.system() == 'Windows':
+        pctype = "windows"
+    elif platform.system() == 'Darwin':
+        pctype = "macos"
+    else:
+        raise Exception('pctype not determined')
+    return pctype
+
+pctype2 = get_pctype()
+print("PCtype =", pctype2)
+
+
 ############################################### main
-root_dir = '/b/home/uha/hfawaz-datas/temp-dl-tsc/'
+
+if platform.system() == "Windows":
+    pctype = "windows"
+elif platform.system() == "Darwin":
+    pctype = "macos"
+
+print("PCtype =", pctype)
+
+pctype2 = get_pctype()
+if pctype2 == "windows":
+    root_dir = '/b/home/uha/hfawaz-datas/temp-dl-tsc/'
+elif pctype2 == "macos":
+    root_dir = ' '
+
+print("Data Directory =", root_dir)
+#root_dir = '/b/home/uha/hfawaz-datas/temp-dl-tsc/'
+
+
 xps = ['use_bottleneck', 'use_residual', 'nb_filters', 'depth',
        'kernel_size', 'batch_size']
 
